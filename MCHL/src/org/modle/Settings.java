@@ -27,35 +27,37 @@ public class Settings {
    private static boolean ui = true;
    private static final String time = runtime();
    private static Log log = new Log("settings");
-    public static void check() {
-       
-       File file = new File("config.properties");
-       if(file.exists()){
-           log.info("Load Settings");
-           Load();
-       } else {
-          log.err("Please set system settings to run!");
-           try {
-               
-               config.setProperty("ui", "false");              
-               config.setProperty("language", "en-us");
-               
-               // 添加注释            
-               //config.put("language", "\n# The language used by the application (\"en\" for English, \"es\" for Spanish, etc.)");
-               
-               OutputStream outputStream = new FileOutputStream("config.properties");
-               config.store(outputStream, "System settings file");
-               outputStream.write("\n# This is a new comment".getBytes());
+   public static void check() {
+     
+    File file = new File("config.properties");
+    if(file.exists()){
+      log.info("Load Settings");
+      Load();
+    } else {
+        log.err("Please set system settings to run!");
+        try {
+              
+            config.setProperty("ui", "false");              
+            config.setProperty("language", "en-us");
+              
+            // 添加注释            
+            //config.put("language", "\n"+"# The language used by the application (\"en\" for English, \"es\" for Spanish, etc.)");
+              
+            OutputStream outputStream = new FileOutputStream("config.properties");
+            config.store(outputStream, "System settings file");
+            outputStream.write("\n# This is a new comment".getBytes());
 
-            } catch (Exception e) {
-               log.info("Settings file generation error!");
-               e.printStackTrace();
+        } catch (Exception e) {
+            log.info("Settings file generation error!");
+            e.printStackTrace();
             
-           }
-           System.exit(0);
+        }
+        //System.exit(0);
+        Load();
            
-       }
-       file = null;
+    }
+        
+        file = null;
     }
     
     private static void Load() {
@@ -69,9 +71,9 @@ public class Settings {
             
             log.info("Loaded Language: " + Languageinfo);
             Language.Load();
-            log.info("Static time:"+time);
-            log.info("GUI:"+config.getProperty("ui"));
-            log.info("Settings loaded successfully");
+            log.info(Language.info("starttime")+time);
+            log.info(Language.info("gui")+config.getProperty("ui"));
+            log.info(Language.info("Settingsloadedsuccessfully"));
             
         } catch (IOException e) {
             log.err("Failed to load configuration file!");

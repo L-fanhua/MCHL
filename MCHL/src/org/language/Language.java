@@ -13,6 +13,7 @@ import src.org.modle.Log;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.MissingResourceException;
 
 public class Language {
     private static ResourceBundle bundle;
@@ -20,14 +21,21 @@ public class Language {
     public static void Load() {
         String language = Settings.language();
        
-        //Locale locale = new Locale(language.substring(0, 2), language.substring(3,5)); 
+        Locale locale = new Locale(language.substring(0, 2), language.substring(3,5)); 
         
-        //bundle = ResourceBundle.getBundle("messages", locale); // 加载资源包文件
+        bundle = ResourceBundle.getBundle("messages", locale); // 加载资源包文件
         
         log.info(info("languageinfo") + info("language"));
     }
     public static String info(String Info) {
-        return "fixbug";
-        //return bundle.getString(Info); // 获取对应键值的字符串;
+        //return "fixbug";
+         return bundle.getString(Info); // 获取对应键值的字符串;
+       
+        //try {
+         //    return bundle.getString(Info); // 获取对应键值的字符串;
+        //} catch(MissingResourceException e) {
+          //   return "noinfo";
+
+        //}
     }
 }
