@@ -27,15 +27,13 @@ public class Language {
         
         log.info(info("languageinfo") + info("language"));
     }
-    public static String info(String Info) {
-        //return "fixbug";
-         return bundle.getString(Info); // 获取对应键值的字符串;
-       
-        //try {
-         //    return bundle.getString(Info); // 获取对应键值的字符串;
-        //} catch(MissingResourceException e) {
-          //   return "noinfo";
+    public static String info(String Info) {      
+        try {
 
-        //}
+            return bundle.getString(Info); // 获取对应键值的字符串;
+        } catch(MissingResourceException e) {
+            return "noinfo";
+        }
     }
+
 }
